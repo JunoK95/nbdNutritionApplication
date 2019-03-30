@@ -6,7 +6,7 @@ class NutritionDisplay extends React.Component{
             <Consumer>
                 { value => {
                     return(
-                        <div>
+                        <div className='container'>
                             <h4>
                                 Current NDBNO {value.ndbno}
                             </h4>

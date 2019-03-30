@@ -21,23 +21,28 @@ class FoodSearcher extends React.Component{
     //Change Global State Context API
     changeContext = (ndbno, dispatch) => {
         event.preventDefault();
-        console.log(ndbno , dispatch)
-        const apiLink = "https://api.nal.usda.gov/ndb/V2/reports?"+"ndbno="+String(ndbno)+"&type=b&format=json&api_key=rAebodHVqSo7XtWRjjcs32d57qAVUYMSwP8muiwK"
-        console.log(apiLink)
-        fetch(apiLink)
-            .then(response => response.json())
-            .then(data => 
-                dispatch({
-                    type: 'CHANGE_SELECTION',
-                    payload: {
-                        ndbno : ndbno,
-                        name : data.foods[0].food.desc.name,
-                        carbFactor: data.foods[0].food.nutrients[3].value,
-                        fatFactor: data.foods[0].food.nutrients[2].value,
-                        proteinFactor: data.foods[0].food.nutrients[1].value
-                    }
-                }
-            )  )
+        if (this.state.selectedndbno != null){
+            const apiLink = "https://api.nal.usda.gov/ndb/V2/reports?"+"ndbno="+String(ndbno)+"&type=b&format=json&api_key=rAebodHVqSo7XtWRjjcs32d57qAVUYMSwP8muiwK"
+            fetch(apiLink)
+                .then(response => response.json())
+                .then(data => 
+                    dispatch({
+                        type: 'CHANGE_SELECTION',
+                        payload: {
+                            ndbno : ndbno,
+                            name : data.foods[0].food.desc.name,
+                            carbFactor: data.foods[0].food.nutrients[3].value,
+                            fatFactor: data.foods[0].food.nutrients[2].value,
+                            proteinFactor: data.foods[0].food.nutrients[1].value
+                            }
+                        })  
+                    )
+
+        }
+        else{
+            console.log("no value chosen")
+        }
+        
     }
 
     handleChange = (event) => {
