@@ -1,0 +1,42 @@
+import React, {Component} from 'react'
+const Context = React.createContext()
+
+const reducer = (state, action) => {
+    console.log(state,action)
+    switch(action.type){
+        case 'CHANGE_SELECTION':
+            return{
+                ndbno : action.payload.ndbno, 
+                name : action.payload.name,
+                carbFactor: action.payload.carbFactor,
+                fatFactor: action.payload.fatFactor,
+                proteinFactor: action.payload.proteinFactor,
+            }
+        default: return state
+    }
+}
+
+export class Provider extends Component{  
+    constructor(){
+        super()
+        this.state = {
+            ndbno : "ndbno",
+            name : "name",
+            carbFactor: "carb",
+            fatFactor: "fat",
+            proteinFactor: "protein",
+            dispatch: action => this.setState(state => reducer(state,action))
+        }
+        
+    }
+    
+    render(){
+        return(
+            <Context.Provider value = {this.state}>
+                {this.props.children}
+            </Context.Provider>
+        )
+    }
+}
+
+export const Consumer = Context.Consumer
