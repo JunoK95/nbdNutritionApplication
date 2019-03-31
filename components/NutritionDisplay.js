@@ -7,21 +7,21 @@ class NutritionDisplay extends React.Component{
                 { value => {
                     return(
                         <div className='container'>
-                            <h4>
+                            <div className="card">
                                 Current NDBNO {value.ndbno}
-                            </h4>
-                            <h4>
+                            </div>
+                            <div className="card">
                                 Current name {value.name}
-                            </h4>
-                            <h4>
+                            </div>
+                            <div className="card">
                                 Current CF {value.carbFactor}
-                            </h4>
-                            <h4>
+                            </div>
+                            <div className="card">
                                 Current FF {value.fatFactor}
-                            </h4>
-                            <h4>
+                            </div>
+                            <div className="card">
                                 Current PF {value.proteinFactor}
-                            </h4>
+                            </div>
                         </div>
                         )
                 }}

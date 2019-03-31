@@ -7,7 +7,7 @@ class App extends React.Component{
         return (
             <div>
                 <NutritionDisplay />
-                <FoodSearcher triggerUpdate={this.updateFood}/>              
+                <FoodSearcher />              
             </div>
         )
     }
