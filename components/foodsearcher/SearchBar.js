@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 class SearchBar extends React.Component{
 
     constructor(props){
@@ -23,9 +25,9 @@ class SearchBar extends React.Component{
 
     render(){
         return(
-            <form onSubmit={this.handleSubmit}>
-                <input name="inputValue" value={this.state.inputValue} placeholder="Search" onChange={this.handleChange}></input>
-                <button type="submit">Search</button>
+            <form className="form-inline" onSubmit={this.handleSubmit}>
+                <input name="inputValue" className='form-group' value={this.state.inputValue} placeholder="Search" onChange={this.handleChange}></input>
+                <button className="btn btn-primary" type="submit"><FontAwesomeIcon icon="search" /></button>
             </form>
         )
     }

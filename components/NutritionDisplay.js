@@ -14,6 +14,9 @@ class NutritionDisplay extends React.Component{
                                 Current name {value.name}
                             </div>
                             <div className="card">
+                                Current kCal {value.calorie}
+                            </div>
+                            <div className="card">
                                 Current CF {value.carbFactor}
                             </div>
                             <div className="card">

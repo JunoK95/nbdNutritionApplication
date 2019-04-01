@@ -2,12 +2,12 @@ import React, {Component} from 'react'
 const Context = React.createContext()
 
 const reducer = (state, action) => {
-    console.log(state,action)
     switch(action.type){
         case 'CHANGE_SELECTION':
             return{
                 ndbno : action.payload.ndbno, 
                 name : action.payload.name,
+                calorie: action.payload.calorie,
                 carbFactor: action.payload.carbFactor,
                 fatFactor: action.payload.fatFactor,
                 proteinFactor: action.payload.proteinFactor,
@@ -22,6 +22,7 @@ export class Provider extends Component{
         this.state = {
             ndbno : "ndbno",
             name : "name",
+            calorie: "calorie",
             carbFactor: "carb",
             fatFactor: "fat",
             proteinFactor: "protein",

@@ -1,18 +1,20 @@
 import SearchBar from "./SearchBar.js";
-import { Consumer } from "../context.js";
+
+import SearchResults from './SearchResults.js';
 
 class FoodSearcher extends React.Component{ 
     constructor(props){
         super(props);
         this.state = {
+            info: [],
             inputValue: "",
             selectedndbno : null
         }
         this.submitToParent = this.submitToParent.bind(this)
     }
 
-    //pass Value of selected option to ./App.js
     //UNUSED (Still good example)
+    //pass Value of selected option to ./App.js
     passToParent = (event) => {
         event.preventDefault();
         this.state.selectedndbno != null ? this.props.triggerUpdate(this.state.selectedndbno) : console.log("valueEmpty")
@@ -25,18 +27,20 @@ class FoodSearcher extends React.Component{
             const apiLink = "https://api.nal.usda.gov/ndb/V2/reports?"+"ndbno="+String(ndbno)+"&type=b&format=json&api_key=rAebodHVqSo7XtWRjjcs32d57qAVUYMSwP8muiwK"
             fetch(apiLink)
                 .then(response => response.json())
-                .then(data => 
+                .then(data => {
+                    console.log(data)
                     dispatch({
                         type: 'CHANGE_SELECTION',
                         payload: {
                             ndbno : ndbno,
                             name : data.foods[0].food.desc.name,
-                            carbFactor: data.foods[0].food.nutrients[3].value,
-                            fatFactor: data.foods[0].food.nutrients[2].value,
-                            proteinFactor: data.foods[0].food.nutrients[1].value
+                            calorie: data.foods[0].food.nutrients[1].value,
+                            carbFactor: data.foods[0].food.nutrients[4].value,
+                            fatFactor: data.foods[0].food.nutrients[3].value,
+                            proteinFactor: data.foods[0].food.nutrients[2].value
                             }
                         })  
-                    )
+                })
 
         }
         else{
@@ -58,9 +62,12 @@ class FoodSearcher extends React.Component{
             const apiCall = "https://api.nal.usda.gov/ndb/search/?format=json&q="+String(searchValue)+"&sort=r&max=25&offset=0&api_key=rAebodHVqSo7XtWRjjcs32d57qAVUYMSwP8muiwK"
             fetch (apiCall)
             .then(response => response.json())
-            .then(data => this.setState({
-                info : data
-            }))
+            .then(data => 
+                {
+                    console.log(data)
+                    this.setState({info : data})
+                }
+            )
         }
         else {
             console.log("no value received from SearchBar")
@@ -90,19 +97,8 @@ class FoodSearcher extends React.Component{
             </div>)
         return(
             <div>   
-                <SearchBar submitToParent={this.submitToParent}/>  
-                NUMBER CHOSEN {this.state.selectedndbno}
-                <Consumer>
-                    { value => {
-                        const {dispatch} = value;
-                        return (
-                            <form onSubmit={this.changeContext.bind(this, this.state.selectedndbno, dispatch)}>
-                            {productNames}   
-                            <button type="submit">SEND</button>   
-                            </form> )
-                            }
-                        }
-                </Consumer>
+                <SearchBar submitToParent={this.submitToParent}/> 
+                <SearchResults resultList={this.state.info}/>
             </div>   
         )     
     }    

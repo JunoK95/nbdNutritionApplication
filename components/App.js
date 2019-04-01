@@ -1,4 +1,4 @@
-import FoodSearcher from "./FoodSearcher.js"
+import FoodSearcher from "./foodsearcher/FoodSearcher.js"
 import NutritionDisplay from "./NutritionDisplay.js"
 
 class App extends React.Component{
