@@ -3,7 +3,7 @@ const Context = React.createContext()
 
 const reducer = (state, action) => {
     switch(action.type){
-        case 'CHANGE_SELECTION':
+        case 'CHANGE_SELECTION':   
             return{
                 ndbno : action.payload.ndbno, 
                 name : action.payload.name,
