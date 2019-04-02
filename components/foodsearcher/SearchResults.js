@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { Consumer } from "../../context.js";
-import {TitleCase} from '../../helpers.js'
+import { TitleCase , DeleteStringSection } from '../../helpers.js'
 
 class SearchResults extends Component{
 
@@ -66,7 +66,7 @@ class SearchResults extends Component{
             return(
                 <tr key={item.ndbno} className="success">
                     <td value={item.ndbno} name="selectedndbno" onClick={this.handleChange} style={{cursor: 'pointer'}}>
-                        {TitleCase(item.name)}
+                        {DeleteStringSection(TitleCase(item.name))}
                     </td>
                 </tr>
             )
