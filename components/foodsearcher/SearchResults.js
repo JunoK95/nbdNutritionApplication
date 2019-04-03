@@ -7,7 +7,8 @@ class SearchResults extends Component{
     constructor(){
         super()
         this.state = {
-            selectedndbno: null
+            selectedndbno: null,
+            page : 1
         }
     
     }
@@ -63,15 +64,13 @@ class SearchResults extends Component{
             console.log("Search Results not received")
         }
 
-        const tableContents = results.map(item => {
-            return(
-                <tr key={item.ndbno} className="success">
-                    <td value={item.ndbno} name="selectedndbno" onClick={this.handleChange} style={{cursor: 'pointer'}}>
-                        {DeleteStringSection(TitleCase(item.name))}
-                    </td>
-                </tr>
-            )
-        })
+        let tableContents = results.slice(25 * (this.state.page - 1), 25 * this.state.page)
+        const maxPages = Math.floor(results.length/25);
+        let pageButtons = [maxPages]
+
+        for (let i = 0; i < maxPages; i++){
+            pageButtons[i] = <button key={i} className="btn btn-secondary btn-sm" name="page" value={i+1} onClick={this.handleChange}>{i+1}</button>
+        }
 
         return(
             <div>
@@ -86,7 +85,7 @@ class SearchResults extends Component{
                                     <thead></thead>
                                     <tbody>
                                         {
-                                            results.map(item => {
+                                            tableContents.map(item => {
                                                 return(
                                                     <tr key={item.ndbno} className="success">
                                                         <td value={item.ndbno} name="selectedndbno" onClick={this.changeContext.bind(this,dispatch)} style={{cursor: 'pointer'}}>
@@ -98,6 +97,7 @@ class SearchResults extends Component{
                                         }
                                     </tbody>
                                 </table>
+                                {pageButtons != 0 ? pageButtons : null}
                             </div>
                         )}
                     }

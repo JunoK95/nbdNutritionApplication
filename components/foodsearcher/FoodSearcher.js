@@ -20,6 +20,7 @@ class FoodSearcher extends React.Component{
         this.state.selectedndbno != null ? this.props.triggerUpdate(this.state.selectedndbno) : console.log("valueEmpty")
     }
 
+    //UNUSED
     //Change Global State Context API
     changeContext = (ndbno, dispatch) => {
         event.preventDefault();
@@ -59,11 +60,10 @@ class FoodSearcher extends React.Component{
     submitToParent(searchValue){
         if (searchValue !== ""){
             console.log(searchValue, " from SearchBar received")
-            const apiCall = "https://api.nal.usda.gov/ndb/search/?format=json&q="+String(searchValue)+"&sort=r&max=25&offset=0&api_key=rAebodHVqSo7XtWRjjcs32d57qAVUYMSwP8muiwK"
+            const apiCall = "https://api.nal.usda.gov/ndb/search/?format=json&q="+String(searchValue)+"&sort=r&max=500&offset=0&api_key=rAebodHVqSo7XtWRjjcs32d57qAVUYMSwP8muiwK"
             fetch (apiCall)
             .then(response => response.json())
-            .then(data => 
-                {
+            .then(data => {
                     console.log(data)
                     this.setState({info : data})
                 }
